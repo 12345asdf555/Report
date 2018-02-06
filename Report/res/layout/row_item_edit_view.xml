@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/scroll_tab_column_width"
+    android:layout_height="match_parent"
+    android:minHeight="50dip"
+    android:orientation="vertical" >
+
+    <!-- 出第一行列的每一项 -->
+    <TextView
+        android:id="@+id/ievEditView"
+        android:layout_width="76dp"
+        android:layout_height="35dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:maxWidth="@dimen/scroll_tab_column_width"
+        android:minWidth="@dimen/scroll_tab_column_width"
+        android:background="@drawable/bg_edittext_normal"
+        android:singleLine="true"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

@@ -1,0 +1,42 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="lecho.lib.hellocharts.samples.ComboLineColumnChartActivity" >
+
+    <item
+        android:id="@+id/action_reset"
+        android:title="重置图表"
+         android:showAsAction="never"/>
+    <item
+        android:id="@+id/action_add_line"
+        android:title="添加一行"
+         android:showAsAction="never"/>
+    <item
+        android:id="@+id/action_toggle_lines"
+        android:title="切换线/分散"
+       android:showAsAction="never"/>
+    <item
+        android:id="@+id/action_toggle_points"
+        android:title="切换点"
+       android:showAsAction="never"/>
+    <item
+        android:id="@+id/action_toggle_cubic"
+        android:title="切换三次曲线"
+       android:showAsAction="never"/>
+    <item
+        android:id="@+id/action_toggle_axes"
+        android:title="切换轴"
+        android:showAsAction="never"/>
+    <item
+        android:id="@+id/action_toggle_axes_names"
+        android:title="曲柄轴的名字"
+        android:showAsAction="never"/>
+    <item
+        android:id="@+id/action_toggle_labels"
+        android:title="切换标签"
+         android:showAsAction="never"/>
+    <item
+        android:id="@+id/action_animate"
+        android:title="动画图"
+         android:showAsAction="never"/>
+</menu>

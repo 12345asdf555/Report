@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:minHeight="20dp"
+    android:maxHeight="20dp"
+    android:orientation="horizontal" >
+
+    <!-- 第一列 -->
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="90dp"
+        android:layout_height="35dp"
+        android:background="@drawable/bg_edittext_normal"
+        android:enabled="false"
+        android:gravity="center"
+        android:maxLines="1"
+        android:maxWidth="@dimen/scroll_tab_column_width"
+        android:minWidth="@dimen/scroll_tab_column_width"
+        android:singleLine="true"
+        android:text="测试"
+        android:textColor="@android:color/black" />
+
+    <th.app.report.CHTableScrollView
+        android:id="@+id/item_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_weight="1" >
+
+        <!-- 除第一之后的行 -->
+        <LinearLayout
+            android:id="@+id/item_scroll_layout"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+        </LinearLayout>
+    </th.app.report.CHTableScrollView>
+
+</LinearLayout>

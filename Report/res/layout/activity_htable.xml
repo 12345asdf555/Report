@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/common_topbar" />
+
+	
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:minHeight="40dip"
+        android:orientation="horizontal" >
+
+        <!-- 第一格 -->
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="90dp"
+            android:layout_height="35dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:maxLines="3"
+            android:singleLine="true"
+            android:text="焊机/时间"
+            android:background="@drawable/bg_edittext_normal"
+            android:textColor="@android:color/black" />
+
+        <th.app.report.CHTableScrollView
+            android:id="@+id/item_scroll_title"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/scrollLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </th.app.report.CHTableScrollView>
+    </LinearLayout>
+
+    <!--android:cacheColorHint="@android:color/transparent" 去掉listview拖动背景色-->
+
+    <ListView
+        android:id="@+id/scroll_list"
+        android:layout_width="fill_parent"
+        android:layout_height="342dp"
+        android:scrollbars="none" >
+
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+
+        <Button
+            android:id="@+id/buttonup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Button" />
+
+    </LinearLayout>
+
+</LinearLayout>
