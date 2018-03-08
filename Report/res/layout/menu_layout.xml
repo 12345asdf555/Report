@@ -3,23 +3,26 @@
      android:layout_width="match_parent"
      android:layout_height="match_parent"
      android:orientation="vertical" >
+
      <com.jeremyfeinstein.slidingmenu.lib.SlidingMenu
          android:layout_width="match_parent"
          android:layout_height="match_parent"
-         >
-         <LinearLayout 
+         android:background="@color/gray2" >
+
+         <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:orientation="vertical" 
-             >
+             android:background="@color/color_drgable_listview_name"
+             android:orientation="vertical" >
 
          <Button
              android:id="@+id/btmachtop"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_gravity="center"
-             android:background="#00000000"
-             android:text="焊机工时top" />
+             android:background="@drawable/list3"
+             android:text="焊机工时top"
+             android:textColor="@color/C_white" />
 
           <Button
               android:id="@+id/btweldtop"
@@ -27,8 +30,9 @@
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:layout_marginTop="10dp"
-              android:background="#00000000"
-              android:text="焊工工时top" />
+              android:background="@drawable/list3"
+              android:text="焊工工时top"
+              android:textColor="@color/C_white" />
 
           <Button
               android:id="@+id/btmachbot"
@@ -36,8 +40,9 @@
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:layout_marginTop="10dp"
-              android:background="#00000000"
-              android:text="焊机工时bot" />
+              android:background="@drawable/list3"
+              android:text="焊机工时bot"
+              android:textColor="@color/C_white" />
           
           <Button
               android:id="@+id/btweldbot"
@@ -45,17 +50,19 @@
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:layout_marginTop="10dp"
-              android:background="#00000000"
-              android:text="焊工工时bot" />
+              android:background="@drawable/list3"
+              android:text="焊工工时bot"
+              android:textColor="@color/C_white" />
           
           <Button
               android:id="@+id/btreturn"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:layout_marginTop="10dp"
-              android:background="#00000000"
-              android:text="返回" />
+              android:background="@drawable/listre"
+              android:text="返回"
+              android:textColor="@color/C_white" />
 
           </LinearLayout>
      </com.jeremyfeinstein.slidingmenu.lib.SlidingMenu>

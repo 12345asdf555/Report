@@ -6,49 +6,92 @@
     tools:context="lecho.lib.hellocharts.samples.ComboLineColumnChartActivity"
     tools:ignore="MergeRootFrame" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="18dp"
-        android:text="时间 :"
-        android:textSize="20dp" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:inputType="date" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="161dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="320dp"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:inputType="date" />
-
-    <Button
-        android:id="@+id/buttonsure"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="500dp"
-        android:layout_marginTop="10dp"
-        android:background="#00000000"
-        android:text="确认" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        android:background="@color/color_drgable_listview_name" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/logoin" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/editText1"
+            android:gravity="center_vertical"
+            android:text="时间 :"
+            android:textColor="@color/C_white"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/editText2"
+            android:background="@drawable/timeback"
+            android:ems="10"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="date"
+            android:textColor="@color/black" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="161dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/buttonsure"
+            android:background="@drawable/timeback"
+            android:ems="10"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="date"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/buttonsure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/imageView1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/sureback"
+            android:text="确认"
+            android:textColor="@color/C_white" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView1"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/imageView1"
+            android:gravity="center_vertical"
+            android:text="TextView"
+            android:textColor="@color/C_white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
 

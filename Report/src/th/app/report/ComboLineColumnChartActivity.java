@@ -277,6 +277,14 @@ public class ComboLineColumnChartActivity extends FragmentActivity {
 						listarray1.clear();
 						new Thread(runnable4).start();
 					}
+				}else{
+					progressDialog.dismiss();
+					progressDialog = new Dialog(ComboLineColumnChartActivity.this,R.style.progress_dialog);  
+	            	progressDialog.setContentView(R.layout.dialog2);  
+	            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
+	            	TextView msg1 = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
+	            	msg1.setText("«Î—°‘Ò ±º‰");  
+	            	progressDialog.show();
 				}
 			}
 		});
