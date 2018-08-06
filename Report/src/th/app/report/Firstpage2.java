@@ -56,11 +56,11 @@ public class Firstpage2 extends Activity {
         	try {
 				Class.forName("com.mysql.jdbc.Driver");
 		        try {
-					conn = DriverManager.getConnection("jdbc:mysql://121.196.222.216:3306/JH", "root", "123456");
+		        	conn = DriverManager.getConnection("jdbc:mysql://121.196.222.216:3306/XMWeld", "db_admin", "PIJXmcLRa0QgOw2c");
 					stmt= conn.createStatement();
 					
 					user="'"+user+"'";
-					String Command1="SELECT tb_users.users_login_name,tb_users.users_password from tb_users where tb_users.users_login_name="+user;
+					String Command1="SELECT tb_users.users_login_name,tb_users.users_password,tb_users.users_insframework from tb_users where tb_users.users_login_name="+user;
 					
 					rs = stmt.executeQuery(Command1);
 					if(!rs.next()){
@@ -70,18 +70,20 @@ public class Firstpage2 extends Activity {
 		            	progressDialog.setContentView(R.layout.dialog2);  
 		            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
 		            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-		            	msg.setText("ÓÃ»§Ãû´íÎó");  
+		            	msg.setText("ç”¨æˆ·åé”™è¯¯");  
 		            	progressDialog.show(); 
 		            	Looper.loop(); 
 		            	
 					}else{
 						
 						String codec = rs.getString("users_password");
+						String ins = rs.getString("users_insframework");
 						if(code.equals(codec)){
 							
 							progressDialog.dismiss();
 							
 							Intent intent1=new Intent(Firstpage2.this,MainActivity.class);
+							intent1.putExtra("ins", ins);
 							startActivity(intent1);
 							
 						}else{
@@ -91,7 +93,7 @@ public class Firstpage2 extends Activity {
 			            	progressDialog.setContentView(R.layout.dialog2);  
 			            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
 			            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-			            	msg.setText("ÃÜÂë´íÎó");  
+			            	msg.setText("å¯†ç é”™è¯¯");  
 			            	progressDialog.show(); 
 			            	Looper.loop();
 			            	
@@ -115,26 +117,26 @@ public class Firstpage2 extends Activity {
 	    // TODO Auto-generated method stub  
 	    if(keyCode == KeyEvent.KEYCODE_BACK)  
 	       {    
-	           exitBy2Click();      //µ÷ÓÃË«»÷ÍË³öº¯Êı  
+	           exitBy2Click();      //è°ƒç”¨åŒå‡»é€€å‡ºå‡½æ•°  
 	       }  
 	    return false;  
 	}  
 	/** 
-	 * Ë«»÷ÍË³öº¯Êı 
+	 * Ë«ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	 */  
 	private static Boolean isExit = false;  
 	  
 	private void exitBy2Click() {  
 	    Timer tExit = null;  
 	    if (isExit == false) {  
-	        isExit = true; // ×¼±¸ÍË³ö    
+	        isExit = true; // å‡†å¤‡é€€å‡º    
 	        tExit = new Timer();  
 	        tExit.schedule(new TimerTask() {  
 	            @Override  
 	            public void run() {  
-	                isExit = false; // È¡ÏûÍË³ö  
+	                isExit = false; // å–æ¶ˆé€€å‡º  
 	            }  
-	        }, 20); // Èç¹û2ÃëÖÓÄÚÃ»ÓĞ°´ÏÂ·µ»Ø¼ü£¬ÔòÆô¶¯¶¨Ê±Æ÷È¡Ïûµô¸Õ²ÅÖ´ĞĞµÄÈÎÎñ  
+	        }, 20); // å¦‚æœ2ç§’é’Ÿå†…æ²¡æœ‰æŒ‰ä¸‹è¿”å›é”®ï¼Œåˆ™å¯åŠ¨å®šæ—¶å™¨å–æ¶ˆæ‰åˆšæ‰æ‰§è¡Œçš„ä»»åŠ¡  
 	  
 	    } else {  
 	        finish();  

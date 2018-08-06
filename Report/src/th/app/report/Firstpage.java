@@ -1,20 +1,31 @@
 package th.app.report;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
+
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -34,6 +45,11 @@ public class Firstpage extends Activity {
 	public String user;
 	public String code;
 	public float fontScale;
+	public String config = "";
+	public String ip = "";
+	public String base = "";
+	public String name = "";
+	public String ser = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +65,39 @@ public class Firstpage extends Activity {
 		int widthsp = px2sp(getBaseContext(),widthpx);
 		int heightsp = px2sp(getBaseContext(),heightpx);
 		
+		//æœ‰æ¨ªæ 
 		int ems = widthpx/300;
+	    
+	    double widthn1 = widthpx/1.85;
+	    int widthnt1 = (int)widthn1;
+	    double heightn1 = heightpx/2.7;
+	    int heightn = (int)heightn1;
+	    
+	    double widthn2 = widthpx/1.65;
+	    int widthne1 = (int)widthn2;
+	    double heightn2 = heightpx/2.85;
+	    int heighe1 = (int)heightn2;
+	    
+	    double heightn3 = heightpx/2.2;
+	    int heighn3 = (int)heightn3;
+	    
+	    double heightn4 = heightpx/2.35;
+	    int heighe2 = (int)heightn4;
+	    
+	    double widthn3 = widthpx/1.58;
+	    int widthne3 = (int)widthn3;
+	    double heightn5 = heightpx/1.8;
+	    int heighe3 = (int)heightn5;
 		
-		double widthn1 = widthpx/1.85;
+	    //æ— æ¨ªæ 
+		/*int ems = widthpx/300;
+		
+		double widthn1 = widthpx/2.00;
 		int widthnt1 = (int)widthn1;
 		double heightn1 = heightpx/2.7;
 		int heightn = (int)heightn1;
 		
-		double widthn2 = widthpx/1.65;
+		double widthn2 = widthpx/1.80;
 		int widthne1 = (int)widthn2;
 		double heightn2 = heightpx/2.85;
 		int heighe1 = (int)heightn2;
@@ -64,13 +105,13 @@ public class Firstpage extends Activity {
 		double heightn3 = heightpx/2.2;
 		int heighn3 = (int)heightn3;
 		
-		double heightn4 = heightpx/2.35;
+		double heightn4 = heightpx/2.40;
 		int heighe2 = (int)heightn4;
 		
-		double widthn3 = widthpx/1.58;
+		double widthn3 = widthpx/1.73;
 		int widthne3 = (int)widthn3;
 		double heightn5 = heightpx/1.8;
-		int heighe3 = (int)heightn5;
+		int heighe3 = (int)heightn5;*/
 		
 		TextView textview1 = (TextView)findViewById(R.id.textView1);
 		RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -114,14 +155,14 @@ public class Firstpage extends Activity {
 	            	progressDialog.setContentView(R.layout.dialog2);  
 	            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
 	            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-	            	msg.setText("ÇëÌîĞ´ÓÃ»§Ãû");  
+	            	msg.setText("è¯·å¡«å†™ç”¨æˆ·å");  
 	            	progressDialog.show(); 
 				}else if(code.isEmpty()){
 					progressDialog = new Dialog(Firstpage.this,R.style.progress_dialog);  
 	            	progressDialog.setContentView(R.layout.dialog2);  
 	            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
 	            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-	            	msg.setText("ÇëÌîĞ´ÃÜÂë");  
+	            	msg.setText("è¯·å¡«å†™å¯†ç ");  
 	            	progressDialog.show(); 
 				}else{
 					
@@ -130,14 +171,48 @@ public class Firstpage extends Activity {
 					
 					code = new String(Hex.encodeHex(DigestUtils.md5(code)));
 					
-					progressDialog = new Dialog(Firstpage.this,R.style.progress_dialog);  
-	            	progressDialog.setContentView(R.layout.dialog);  
-	            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
-	            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-	            	msg.setText("µÇÂ¼ÖĞ");  
-	            	progressDialog.show(); 
-	            	
-	            	new Thread(runnable1).start();
+					try {  
+		            	String releasepath = getApplicationContext().getFilesDir().getAbsolutePath()+"/ipconfig.txt";
+		            	FileInputStream inputStream = new FileInputStream(releasepath);
+		            	byte[] bytes = new byte[100];  
+		                ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();  
+		                while (inputStream.read(bytes) != -1) {  
+		                    arrayOutputStream.write(bytes, 0, bytes.length);  
+		                }
+		                inputStream.close();  
+		                arrayOutputStream.close(); 
+		                
+		                config = new String(bytes,"UTF-8");
+		                
+		                String[] configbuf = config.split(",");
+		                ip = configbuf[0];
+		                base = configbuf[1];
+		                name = configbuf[2];
+		                ser = configbuf[3];
+		                
+		            } catch (IOException e) {  
+		                e.printStackTrace();  
+		            }
+					
+	            	if(ip.equals("") || base.equals("") || name.equals("") || ser.equals("")){
+	            		progressDialog = new Dialog(Firstpage.this,R.style.progress_dialog);  
+		            	progressDialog.setContentView(R.layout.dialog2);  
+		            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
+		            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg); 
+		            	
+	            		msg.setText("è¯·å…ˆé…ç½®å‚æ•°");  
+	            		progressDialog.show();
+	            	}else{
+	            		progressDialog = new Dialog(Firstpage.this,R.style.progress_dialog);  
+		            	progressDialog.setContentView(R.layout.dialog);  
+		            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
+		            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);
+		            	
+		            	msg.setText("ç™»å½•ä¸­");  
+		            	progressDialog.show(); 
+		            	
+		            	new Thread(runnable1).start();
+	            	}
 				}
 				
 			}
@@ -168,11 +243,12 @@ public class Firstpage extends Activity {
         	try {
 				Class.forName("com.mysql.jdbc.Driver");
 		        try {
-					conn = DriverManager.getConnection("jdbc:mysql://121.196.222.216:3306/JH", "root", "123456");
-					stmt= conn.createStatement();
+					conn = DriverManager.getConnection("jdbc:mysql://" + ip + ":3306/" + base + "", "" + name + "", "" + ser + "");
+		        	//conn = DriverManager.getConnection("jdbc:mysql://" + ip + ":3306/Weld", "db_admin", "PIJXmcLRa0QgOw2c");
+		        	stmt= conn.createStatement();
 					
 					user="'"+user+"'";
-					String Command1="SELECT tb_users.users_login_name,tb_users.users_password from tb_users where tb_users.users_login_name="+user;
+					String Command1="SELECT tb_users.users_login_name,tb_users.users_password,tb_users.users_insframework,tb_insframework.ftype from tb_users INNER JOIN tb_insframework ON tb_users.users_insframework = tb_insframework.fid where tb_users.users_login_name="+user;
 					
 					rs = stmt.executeQuery(Command1);
 					if(!rs.next()){
@@ -182,18 +258,26 @@ public class Firstpage extends Activity {
 		            	progressDialog.setContentView(R.layout.dialog2);  
 		            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
 		            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-		            	msg.setText("ÓÃ»§Ãû´íÎó");  
+		            	msg.setText("ç”¨æˆ·åé”™è¯¯");  
 		            	progressDialog.show(); 
 		            	Looper.loop(); 
 		            	
 					}else{
 						
 						String codec = rs.getString("users_password");
+						String ins = rs.getString("users_insframework");
+						String instype = rs.getString("ftype");
 						if(code.equals(codec)){
 							
 							progressDialog.dismiss();
 							
 							Intent intent1=new Intent(Firstpage.this,MainActivity.class);
+							intent1.putExtra("ins", ins);
+							intent1.putExtra("instype", instype);
+							intent1.putExtra("ip", ip);
+							intent1.putExtra("base", base);
+							intent1.putExtra("name", name);
+							intent1.putExtra("ser", ser);
 							startActivity(intent1);
 							
 						}else{
@@ -203,7 +287,7 @@ public class Firstpage extends Activity {
 			            	progressDialog.setContentView(R.layout.dialog2);  
 			            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
 			            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-			            	msg.setText("ÃÜÂë´íÎó");  
+			            	msg.setText("å¯†ç é”™è¯¯");  
 			            	progressDialog.show(); 
 			            	Looper.loop();
 			            	
@@ -227,26 +311,26 @@ public class Firstpage extends Activity {
 	    // TODO Auto-generated method stub  
 	    if(keyCode == KeyEvent.KEYCODE_BACK)  
 	       {    
-	           exitBy2Click();      //µ÷ÓÃË«»÷ÍË³öº¯Êı  
+	           exitBy2Click();      //è°ƒç”¨åŒå‡»é€€å‡ºå‡½æ•°
 	       }  
 	    return false;  
 	}  
 	/** 
-	 * Ë«»÷ÍË³öº¯Êı 
+	 * Ë«ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	 */  
 	private static Boolean isExit = false;  
 	  
 	private void exitBy2Click() {  
 	    Timer tExit = null;  
 	    if (isExit == false) {  
-	        isExit = true; // ×¼±¸ÍË³ö    
+	        isExit = true; // å‡†å¤‡é€€å‡º  
 	        tExit = new Timer();  
 	        tExit.schedule(new TimerTask() {  
 	            @Override  
 	            public void run() {  
-	                isExit = false; // È¡ÏûÍË³ö  
+	                isExit = false; // å–æ¶ˆé€€å‡º 
 	            }  
-	        }, 20); // Èç¹û2ÃëÖÓÄÚÃ»ÓĞ°´ÏÂ·µ»Ø¼ü£¬ÔòÆô¶¯¶¨Ê±Æ÷È¡Ïûµô¸Õ²ÅÖ´ĞĞµÄÈÎÎñ  
+	        }, 20); // å¦‚æœ2ç§’é’Ÿå†…æ²¡æœ‰æŒ‰ä¸‹è¿”å›é”®ï¼Œåˆ™å¯åŠ¨å®šæ—¶å™¨å–æ¶ˆæ‰åˆšæ‰æ‰§è¡Œçš„ä»»åŠ¡
 	  
 	    } else {  
 	        finish();  
@@ -256,13 +340,89 @@ public class Firstpage extends Activity {
 
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
-			return true;
+			
+			//å¤šè¾“å…¥æ¡†
+			LayoutInflater factory = LayoutInflater.from(this);
+			final View textEntryView = factory.inflate(R.layout.dialogset, null);
+			
+			final EditText inputip = (EditText) textEntryView.findViewById(R.id.editTextIP); 
+			final EditText inputbase = (EditText) textEntryView.findViewById(R.id.editTextBASE); 
+			final EditText inputname = (EditText) textEntryView.findViewById(R.id.editTextNAME); 
+			final EditText inputser = (EditText) textEntryView.findViewById(R.id.editTextSER); 
+			
+			try {  
+            	String releasepath = getApplicationContext().getFilesDir().getAbsolutePath()+"/ipconfig.txt";
+            	FileInputStream inputStream = new FileInputStream(releasepath);
+            	byte[] bytes = new byte[100];  
+                ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();  
+                while (inputStream.read(bytes) != -1) {  
+                    arrayOutputStream.write(bytes, 0, bytes.length);  
+                } 
+                inputStream.close();  
+                arrayOutputStream.close(); 
+                
+                config = new String(bytes,"UTF-8");
+                
+                String[] configbuf = config.split(",");
+                ip = configbuf[0];
+                base = configbuf[1];
+                name = configbuf[2];
+                ser = configbuf[3];
+                
+            } catch (IOException e) {  
+                e.printStackTrace();  
+            }
+			
+			inputip.setText(ip);
+			inputbase.setText(base);
+			inputname.setText(name);
+			
+            AlertDialog.Builder builder = new AlertDialog.Builder(Firstpage.this);  
+            builder.setTitle("å‚æ•°é…ç½®").setView(textEntryView)  
+                    .setNegativeButton("å–æ¶ˆ", null);  
+            builder.setPositiveButton("ç¡®å®š", new DialogInterface.OnClickListener() {  
+  
+				public void onClick(DialogInterface dialog, int which) {  
+					String ip = inputip.getText().toString(); 
+					String base = inputbase.getText().toString();
+					String name = inputname.getText().toString();
+					String ser = inputser.getText().toString();
+					ip = ip + "," + base + "," + name + "," + ser + ",";
+                	try {
+                		String releasepath = getApplicationContext().getFilesDir().getAbsolutePath()+"/ipconfig.txt";
+                		FileOutputStream outputStream = new FileOutputStream(releasepath);
+                		outputStream.write(ip.getBytes());  
+                        outputStream.flush();  
+                        outputStream.close();  
+                		
+						/*FileOutputStream outStream = new FileOutputStream(file,true);
+						FileOutputStream outStream = getResources().getAssets().openFd("IPconfig.txt").createOutputStream();
+						outStream.write(ipconfig.getBytes());
+						outStream.flush();
+			            outStream.close();*/
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                 }  
+            });  
+            builder.show();  
 		}
 		return super.onOptionsItemSelected(item);
 	}

@@ -21,18 +21,8 @@
              android:layout_height="wrap_content"
              android:layout_gravity="center"
              android:background="@drawable/list3"
-             android:text="焊机工时top"
+             android:text="焊机工时TOP"
              android:textColor="@color/C_white" />
-
-          <Button
-              android:id="@+id/btweldtop"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center"
-              android:layout_marginTop="10dp"
-              android:background="@drawable/list3"
-              android:text="焊工工时top"
-              android:textColor="@color/C_white" />
 
           <Button
               android:id="@+id/btmachbot"
@@ -41,8 +31,19 @@
               android:layout_gravity="center"
               android:layout_marginTop="10dp"
               android:background="@drawable/list3"
-              android:text="焊机工时bot"
+              android:text="焊机工时BOT"
               android:textColor="@color/C_white" />
+          
+          <Button
+              android:id="@+id/btweldtop"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginTop="10dp"
+              android:background="@drawable/list3"
+              android:text="焊工工时TOP"
+              android:textColor="@color/C_white" />
+
           
           <Button
               android:id="@+id/btweldbot"
@@ -51,7 +52,27 @@
               android:layout_gravity="center"
               android:layout_marginTop="10dp"
               android:background="@drawable/list3"
-              android:text="焊工工时bot"
+              android:text="焊工工时BOT"
+              android:textColor="@color/C_white" />
+          
+          <Button
+              android:id="@+id/btweldusetop"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginTop="10dp"
+              android:background="@drawable/list3"
+              android:text="设备利用率TOP"
+              android:textColor="@color/C_white" />
+          
+          <Button
+              android:id="@+id/btweldusebot"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginTop="10dp"
+              android:background="@drawable/list3"
+              android:text="设备利用率BOT"
               android:textColor="@color/C_white" />
           
           <Button

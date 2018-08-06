@@ -28,22 +28,36 @@ public class MainActivity extends Activity {
 	public ArrayList<String> listarray1 = new ArrayList<String>();
 	public ArrayList<String> listarray2 = new ArrayList<String>();
 	public 	SlidingMenu slidingMenu;
-	public Button button1,button2,button3,button4,button5;
+	public Button button1,button2,button3,button4,button5,button6,button7;
 	private java.sql.Connection conn = null;
 	private java.sql.Statement stmt =null;
-	private String Command1;
 	private String sendtype;
 	private Dialog progressDialog;
+	public String ins;
+	public String instype;
+	public String ipconfig;
+	public String base;
+	public String name;
+	public String ser;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
+		Intent intent=getIntent();
+		ins = intent.getStringExtra("ins");
+		ins = intent.getStringExtra("ins");
+		instype = intent.getStringExtra("instype");
+		ipconfig = intent.getStringExtra("ip");
+		base = intent.getStringExtra("base");
+		name = intent.getStringExtra("name");
+		ser = intent.getStringExtra("ser");
+		
 		slidingMenu = new SlidingMenu(this);
-		slidingMenu.setMode(SlidingMenu.LEFT);  //²Ëµ¥´Ó×ó±ß»¬³ö
-		slidingMenu.setBehindWidth(600);        //²Ëµ¥µÄ¿í¶È
-		slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);//²Ëµ¥È«ÆÁ¶¼¿É»¬³ö
+		slidingMenu.setMode(SlidingMenu.LEFT);  //èœå•ä»Žå·¦è¾¹æ»‘å‡º
+		slidingMenu.setBehindWidth(600);        //èœå•çš„å®½åº¦
+		slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);//èœå•å…¨å±éƒ½å¯æ»‘å‡º
 		slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 		slidingMenu.setMenu(R.layout.menu_layout);
 		slidingMenu.toggle();
@@ -52,6 +66,8 @@ public class MainActivity extends Activity {
 		button2=(Button)findViewById(R.id.btweldtop);
 		button3=(Button)findViewById(R.id.btmachbot);
 		button4=(Button)findViewById(R.id.btweldbot);
+		button6=(Button)findViewById(R.id.btweldusetop);
+		button7=(Button)findViewById(R.id.btweldusebot);
 		button5=(Button)findViewById(R.id.btreturn);
 		button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,10 +77,10 @@ public class MainActivity extends Activity {
             	progressDialog.setContentView(R.layout.dialog);  
             	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
             	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-            	msg.setText("ÕýÔÚ²éÑ¯");  
+            	msg.setText("æ­£åœ¨æŸ¥è¯¢");  
             	progressDialog.show(); 
             	
-            	//º¸»ú¹¤Ê±¸ßÅÅÐÐ
+            	//ç„Šæœºå·¥æ—¶é«˜æŽ’è¡Œ
         		new Thread(runnable1).start();
             }
         });
@@ -77,10 +93,10 @@ public class MainActivity extends Activity {
             	progressDialog.setContentView(R.layout.dialog);  
             	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
             	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-            	msg.setText("ÕýÔÚ²éÑ¯");  
+            	msg.setText("æ­£åœ¨æŸ¥è¯¢");  
             	progressDialog.show(); 
             	
-            	//º¸¹¤¹¤Ê±¸ßÅÅÐÐ
+            	//ç„Šæœºå·¥æ—¶é«˜æŽ’è¡Œ
         		new Thread(runnable2).start();
             }
         });
@@ -93,10 +109,10 @@ public class MainActivity extends Activity {
             	progressDialog.setContentView(R.layout.dialog);  
             	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
             	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-            	msg.setText("ÕýÔÚ²éÑ¯");  
+            	msg.setText("æ­£åœ¨æŸ¥è¯¢");  
             	progressDialog.show(); 
             	
-            	//º¸»ú¹¤Ê±¸ßÅÅÐÐ
+            	//ç„Šæœºå·¥æ—¶é«˜æŽ’è¡Œ
         		new Thread(runnable3).start();
             }
         });
@@ -109,10 +125,10 @@ public class MainActivity extends Activity {
             	progressDialog.setContentView(R.layout.dialog);  
             	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
             	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
-            	msg.setText("ÕýÔÚ²éÑ¯");  
+            	msg.setText("æ­£åœ¨æŸ¥è¯¢");  
             	progressDialog.show(); 
             	
-            	//º¸¹¤¹¤Ê±µÍÅÅÐÐ
+            	//ç„Šå·¥å·¥æ—¶ä½ŽæŽ’è¡Œ
         		new Thread(runnable4).start();
             }
         });
@@ -120,14 +136,48 @@ public class MainActivity extends Activity {
 		button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            	/*Intent intent2=new Intent(MainActivity.this,ComboLineColumnChartActivity.class);
-            	startActivity(intent2);*/
-                //MainActivity.this.finish();
+            	
+            	Intent intent1=new Intent(MainActivity.this,Firstpage.class);
+            	startActivity(intent1);
+            	
             }
         });
+		
+		button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            	
+            	progressDialog = new Dialog(MainActivity.this,R.style.progress_dialog);  
+            	progressDialog.setContentView(R.layout.dialog);  
+            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
+            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
+            	msg.setText("æ­£åœ¨æŸ¥è¯¢");  
+            	progressDialog.show(); 
+            	
+            	//è®¾å¤‡åˆ©ç”¨çŽ‡é«˜æŽ’è¡Œ
+        		new Thread(runnable6).start();
+            }
+        });
+		
+		button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            	
+            	progressDialog = new Dialog(MainActivity.this,R.style.progress_dialog);  
+            	progressDialog.setContentView(R.layout.dialog);  
+            	progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  
+            	TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);  
+            	msg.setText("æ­£åœ¨æŸ¥è¯¢");  
+            	progressDialog.show(); 
+            	
+            	//è®¾å¤‡åˆ©ç”¨çŽ‡ä½ŽæŽ’è¡Œ
+        		new Thread(runnable7).start();
+            }
+        });
+		
 	}
 		
-	//º¸»ú¹¤Ê±¸ßÅÅÐÐ
+	//ç„Šæœºå·¥æ—¶é«˜æŽ’è¡Œ
 	Runnable runnable1 = new Runnable() {
         ResultSet rs;
         public void run() { 
@@ -135,16 +185,19 @@ public class MainActivity extends Activity {
         	try {
 				Class.forName("com.mysql.jdbc.Driver");
 		        try {
-					conn = DriverManager.getConnection("jdbc:mysql://121.196.222.216:3306/THWeld", "root", "123456");
+		        	conn = DriverManager.getConnection("jdbc:mysql://" + ipconfig + ":3306/" + base + "", "" + name + "", "" + ser + "");
 					stmt= conn.createStatement();
 					
-					Command1="select count(l.fid) num,fequipment_no from tb_live_data l LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id WHERE 1=1 and fweldtime >= '2017-12-20' and fweldtime <= '2018-03-01' group by fmachine_id ORDER by num DESC";
+					//String Command1="select count(l.fid) num,fequipment_no from tb_live_data l LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id WHERE 1=1 and fweldtime >= '2017-12-20' and fweldtime <= '2019-03-01' group by fmachine_id ORDER by num DESC";
+					//String Command1="SELECT SUM(tb_work.fworktime),tb_welding_machine.fequipment_no FROM tb_work INNER JOIN tb_welding_machine ON tb_work.fmachine_id = tb_welding_machine.fid WHERE 1=1 GROUP BY tb_welding_machine.fequipment_no ORDER BY SUM(tb_work.fworktime) DESC";
+					String Command1="SELECT SUM(tb_work.fworktime),tb_welding_machine.fequipment_no FROM tb_work INNER JOIN tb_welding_machine ON tb_welding_machine.fid = tb_work.fmachine_id INNER JOIN tb_insframework ON tb_work.fitemid = tb_insframework.fid INNER JOIN tb_insframework ins1 ON ins1.fid = tb_insframework.fparent INNER JOIN tb_insframework ins2 ON ins2.fid = tb_insframework.fparent WHERE 1 = 1 AND (ins2.fparent = " + ins + " OR ins1.fparent = " + ins + " OR tb_insframework.fparent = " + ins + " OR tb_insframework.fid = " + ins +") GROUP BY tb_welding_machine.fequipment_no ORDER BY SUM(tb_work.fworktime) DESC";
 					
 					rs = stmt.executeQuery(Command1);
 					
+					listarray1.clear();
 					while (rs.next()) {
-					  String num = Integer.toString(Integer.valueOf(rs.getString("num"))/3600);
-			      	  String fequipment_no = Integer.toString(Integer.parseInt(rs.getString("fequipment_no"), 16));
+					  String num = Integer.toString(Integer.valueOf(rs.getString("SUM(tb_work.fworktime)"))/3600);
+			      	  String fequipment_no = rs.getString("fequipment_no");
 			      	  listarray1.add(num);
 			      	  listarray1.add(fequipment_no);
 			        }
@@ -161,7 +214,13 @@ public class MainActivity extends Activity {
 			Intent intent1=new Intent(MainActivity.this,ComboLineColumnChartActivity.class);
 			intent1.putStringArrayListExtra("data", listarray1);
 			intent1.putExtra("type", sendtype);
-			intent1.putExtra("name", "º¸»ú¹¤Ê±top");
+			intent1.putExtra("name", "ç„Šæœºå·¥æ—¶TOP");
+			intent1.putExtra("ins", ins);
+			intent1.putExtra("instype", instype);
+			intent1.putExtra("ip", ipconfig);
+			intent1.putExtra("base", base);
+			intent1.putExtra("name", name);
+			intent1.putExtra("ser", ser);
 			
 			progressDialog.dismiss();
 			
@@ -169,7 +228,7 @@ public class MainActivity extends Activity {
     	}
 	};
 	
-	//º¸¹¤¹¤Ê±¸ßÅÅÐÐ
+	//ç„Šå·¥å·¥æ—¶é«˜æŽ’è¡Œ
 	Runnable runnable2 = new Runnable() {
         ResultSet rs;
         public void run() {
@@ -177,15 +236,18 @@ public class MainActivity extends Activity {
         	try {
 				Class.forName("com.mysql.jdbc.Driver");
 		        try {
-					conn = DriverManager.getConnection("jdbc:mysql://121.196.222.216:3306/THWeld", "root", "123456");
+		        	conn = DriverManager.getConnection("jdbc:mysql://" + ipconfig + ":3306/" + base + "", "" + name + "", "" + ser + "");
 					stmt= conn.createStatement();
 					
-					Command1="select COUNT(tb_live_data.fid) num,tb_welder.fname FROM tb_welder left JOIN tb_live_data on tb_welder.fwelder_no = tb_live_data.fwelder_id WHERE 1=1 and fweldtime >= '2017-12-20' and fweldtime <= '2018-03-01' group by tb_welder.fname ORDER by num DESC";
+					//String Command1="select COUNT(tb_live_data.fid) num,tb_welder.fname FROM tb_welder left JOIN tb_live_data on tb_welder.fwelder_no = tb_live_data.fwelder_id WHERE 1=1 and fweldtime >= '2017-12-20' and fweldtime <= '2019-03-01' group by tb_welder.fname ORDER by num DESC";
+					//String Command1="SELECT SUM(tb_work.fworktime),tb_welder.fname FROM tb_work INNER JOIN tb_welder ON tb_work.fwelder_id = tb_welder.fwelder_no WHERE 1=1 GROUP BY tb_welder.fname ORDER BY SUM(tb_work.fworktime) DESC";
+					String Command1="SELECT SUM(tb_work.fworktime),tb_welder.fname FROM tb_work INNER JOIN tb_welder ON tb_work.fwelder_id = tb_welder.fwelder_no INNER JOIN tb_insframework ON tb_work.fitemid = tb_insframework.fid INNER JOIN tb_insframework ins1 ON ins1.fid = tb_insframework.fparent INNER JOIN tb_insframework ins2 ON ins2.fid = tb_insframework.fparent WHERE 1 = 1 AND (ins2.fparent = " + ins + " OR ins1.fparent = " + ins + " OR tb_insframework.fparent = " + ins + " OR tb_insframework.fid = " + ins +") GROUP BY tb_welder.fname ORDER BY SUM(tb_work.fworktime) DESC";
 					
 					rs = stmt.executeQuery(Command1);
 					
+					listarray1.clear();
 					while (rs.next()) {
-					  String num = Integer.toString(Integer.valueOf(rs.getString("num"))/3600);
+					  String num = Integer.toString(Integer.valueOf(rs.getString("SUM(tb_work.fworktime)"))/3600);
 			      	  String welder = rs.getString("fname");
 			      	  listarray1.add(num);
 			      	  listarray1.add(welder);
@@ -203,7 +265,13 @@ public class MainActivity extends Activity {
 			Intent intent1=new Intent(MainActivity.this,ComboLineColumnChartActivity.class);
 			intent1.putStringArrayListExtra("data", listarray1);
 			intent1.putExtra("type", sendtype);
-			intent1.putExtra("name", "º¸¹¤¹¤Ê±top");
+			intent1.putExtra("name", "ç„Šå·¥å·¥æ—¶TOP");
+			intent1.putExtra("ins", ins);
+			intent1.putExtra("instype", instype);
+			intent1.putExtra("ip", ipconfig);
+			intent1.putExtra("base", base);
+			intent1.putExtra("name", name);
+			intent1.putExtra("ser", ser);
 			
 			progressDialog.dismiss();
 			
@@ -211,91 +279,348 @@ public class MainActivity extends Activity {
     	}
 	};
 	
-	//º¸»ú¹¤Ê±µÍÅÅÐÐ
-		Runnable runnable3 = new Runnable() {
-	        ResultSet rs;
-	        public void run() {
-	        	
-	        	try {
-					Class.forName("com.mysql.jdbc.Driver");
-			        try {
-						conn = DriverManager.getConnection("jdbc:mysql://121.196.222.216:3306/THWeld", "root", "123456");
-						stmt= conn.createStatement();
-						
-						Command1="select count(l.fid) num,fequipment_no from tb_live_data l LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id WHERE 1=1 and fweldtime >= '2017-12-20' and fweldtime <= '2018-03-01' group by fmachine_id ORDER by num ASC";
-						
-						rs = stmt.executeQuery(Command1);
-						
-						while (rs.next()) {
-						  String num = Integer.toString(Integer.valueOf(rs.getString("num"))/3600);
-				      	  String fequipment_no = Integer.toString(Integer.parseInt(rs.getString("fequipment_no"), 16));
-				      	  listarray1.add(num);
-				      	  listarray1.add(fequipment_no);
-				        }
-						
-			        } catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	        	} catch (ClassNotFoundException e) {
+	//ç„Šæœºå·¥æ—¶ä½ŽæŽ’è¡Œ
+	Runnable runnable3 = new Runnable() {
+        ResultSet rs;
+        public void run() {
+        	
+        	try {
+				Class.forName("com.mysql.jdbc.Driver");
+		        try {
+		        	conn = DriverManager.getConnection("jdbc:mysql://" + ipconfig + ":3306/" + base + "", "" + name + "", "" + ser + "");
+					stmt= conn.createStatement();
+					
+					//String Command1="select count(l.fid) num,fequipment_no from tb_live_data l LEFT JOIN tb_welding_machine m on m.fid = l.fmachine_id WHERE 1=1 and fweldtime >= '2017-12-20' and fweldtime <= '2019-03-01' group by fmachine_id ORDER by num ASC";
+					//String Command1="SELECT SUM(tb_work.fworktime),tb_welding_machine.fequipment_no FROM tb_work INNER JOIN tb_welding_machine ON tb_work.fmachine_id = tb_welding_machine.fid WHERE 1=1 GROUP BY tb_welding_machine.fequipment_no ORDER BY SUM(tb_work.fworktime) ASC";
+					String Command1="SELECT SUM(tb_work.fworktime),tb_welding_machine.fequipment_no FROM tb_work INNER JOIN tb_welding_machine ON tb_welding_machine.fid = tb_work.fmachine_id INNER JOIN tb_insframework ON tb_work.fitemid = tb_insframework.fid INNER JOIN tb_insframework ins1 ON ins1.fid = tb_insframework.fparent INNER JOIN tb_insframework ins2 ON ins2.fid = tb_insframework.fparent WHERE 1 = 1 AND (ins2.fparent = " + ins + " OR ins1.fparent = " + ins + " OR tb_insframework.fparent = " + ins + " OR tb_insframework.fid = " + ins +") GROUP BY tb_welding_machine.fequipment_no ORDER BY SUM(tb_work.fworktime) ASC";
+					
+					rs = stmt.executeQuery(Command1);
+					
+					listarray1.clear();
+					while (rs.next()) {
+					  String num = Integer.toString(Integer.valueOf(rs.getString("SUM(tb_work.fworktime)"))/3600);
+			      	  String fequipment_no = rs.getString("fequipment_no");
+			      	  listarray1.add(num);
+			      	  listarray1.add(fequipment_no);
+			        }
+					
+		        } catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	        	sendtype="machbot";
-				Intent intent1=new Intent(MainActivity.this,ComboLineColumnChartActivity.class);
-				intent1.putStringArrayListExtra("data", listarray1);
-				intent1.putExtra("type", sendtype);
-				intent1.putExtra("name", "º¸»ú¹¤Ê±bot");
-				
-				progressDialog.dismiss();
-				
-				startActivity(intent1);
-	    	}
-		};
+        	} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	sendtype="machbot";
+			Intent intent1=new Intent(MainActivity.this,ComboLineColumnChartActivity.class);
+			intent1.putStringArrayListExtra("data", listarray1);
+			intent1.putExtra("type", sendtype);
+			intent1.putExtra("name", "ç„Šæœºå·¥æ—¶BOT");
+			intent1.putExtra("ins", ins);
+			intent1.putExtra("instype", instype);
+			intent1.putExtra("ip", ipconfig);
+			intent1.putExtra("base", base);
+			intent1.putExtra("name", name);
+			intent1.putExtra("ser", ser);
+			
+			progressDialog.dismiss();
+			
+			startActivity(intent1);
+    	}
+	};
+
+	//ç„Šå·¥å·¥æ—¶ä½ŽæŽ’è¡Œ
+	Runnable runnable4 = new Runnable() {
+        ResultSet rs;
+        public void run() {
+        	
+        	try {
+				Class.forName("com.mysql.jdbc.Driver");
+		        try {
+		        	conn = DriverManager.getConnection("jdbc:mysql://" + ipconfig + ":3306/" + base + "", "" + name + "", "" + ser + "");
+					stmt= conn.createStatement();
+					
+					//String Command1="select COUNT(tb_live_data.fid) num,tb_welder.fname FROM tb_welder left JOIN tb_live_data on tb_welder.fwelder_no = tb_live_data.fwelder_id WHERE 1=1 and fweldtime >= '2017-12-20' and fweldtime <= '2019-03-01' group by tb_welder.fname ORDER by num ASC";
+					//String Command1="SELECT SUM(tb_work.fworktime),tb_welder.fname FROM tb_work INNER JOIN tb_welder ON tb_work.fwelder_id = tb_welder.fwelder_no WHERE 1=1 GROUP BY tb_welder.fname ORDER BY SUM(tb_work.fworktime) ASC";
+					String Command1 = "SELECT SUM(tb_work.fworktime),tb_welder.fname FROM tb_work INNER JOIN tb_welder ON tb_work.fwelder_id = tb_welder.fwelder_no INNER JOIN tb_insframework ON tb_work.fitemid = tb_insframework.fid INNER JOIN tb_insframework ins1 ON ins1.fid = tb_insframework.fparent INNER JOIN tb_insframework ins2 ON ins2.fid = tb_insframework.fparent WHERE 1 = 1 AND (ins2.fparent = " + ins + " OR ins1.fparent = " + ins + " OR tb_insframework.fparent = " + ins + " OR tb_insframework.fid = " + ins +") GROUP BY tb_welder.fname ORDER BY SUM(tb_work.fworktime) ASC";
+					
+					rs = stmt.executeQuery(Command1);
+					
+					listarray1.clear();
+					while (rs.next()) {
+					  String num = Integer.toString(Integer.valueOf(rs.getString("SUM(tb_work.fworktime)"))/3600);
+			      	  String welder = rs.getString("fname");
+			      	  listarray1.add(num);
+			      	  listarray1.add(welder);
+			        }
+					
+		        } catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	sendtype="weldbot";
+			Intent intent1=new Intent(MainActivity.this,ComboLineColumnChartActivity.class);
+			intent1.putStringArrayListExtra("data", listarray1);
+			intent1.putExtra("type", sendtype);
+			intent1.putExtra("name", "ç„Šå·¥å·¥æ—¶BOT");
+			intent1.putExtra("ins", ins);
+			intent1.putExtra("instype", instype);
+			intent1.putExtra("ip", ipconfig);
+			intent1.putExtra("base", base);
+			intent1.putExtra("name", name);
+			intent1.putExtra("ser", ser);
+			
+			progressDialog.dismiss();
+			
+			startActivity(intent1);
+    	}
+	};
 	
-		//º¸¹¤¹¤Ê±µÍÅÅÐÐ
-		Runnable runnable4 = new Runnable() {
-	        ResultSet rs;
-	        public void run() {
-	        	
-	        	try {
-					Class.forName("com.mysql.jdbc.Driver");
-			        try {
-						conn = DriverManager.getConnection("jdbc:mysql://121.196.222.216:3306/THWeld", "root", "123456");
-						stmt= conn.createStatement();
-						
-						Command1="select COUNT(tb_live_data.fid) num,tb_welder.fname FROM tb_welder left JOIN tb_live_data on tb_welder.fwelder_no = tb_live_data.fwelder_id WHERE 1=1 and fweldtime >= '2017-12-20' and fweldtime <= '2018-03-01' group by tb_welder.fname ORDER by num ASC";
-						
-						rs = stmt.executeQuery(Command1);
-						
-						while (rs.next()) {
-						  String num = Integer.toString(Integer.valueOf(rs.getString("num"))/3600);
-				      	  String welder = rs.getString("fname");
-				      	  listarray1.add(num);
-				      	  listarray1.add(welder);
-				        }
-						
-			        } catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+	//è®¾å¤‡åˆ©ç”¨çŽ‡é«˜
+	Runnable runnable6 = new Runnable() {
+        ResultSet rs;
+        public void run() {
+        	
+        	try {
+				Class.forName("com.mysql.jdbc.Driver");
+		        try {
+		        	conn = DriverManager.getConnection("jdbc:mysql://" + ipconfig + ":3306/" + base + "", "" + name + "", "" + ser + "");
+					stmt= conn.createStatement();
+					
+					//String Command1="select COUNT(tb_live_data.fid) num,tb_welder.fname FROM tb_welder left JOIN tb_live_data on tb_welder.fwelder_no = tb_live_data.fwelder_id WHERE 1=1 and fweldtime >= '2017-12-20' and fweldtime <= '2019-03-01' group by tb_welder.fname ORDER by num ASC";
+					//String Command1="SELECT SUM(tb_work.fworktime),tb_welder.fname FROM tb_work INNER JOIN tb_welder ON tb_work.fwelder_id = tb_welder.fwelder_no WHERE 1=1 GROUP BY tb_welder.fname ORDER BY SUM(tb_work.fworktime) ASC";
+					
+					String status = "";
+					String inssta = "";
+					String inssta2 = "";
+					String num = "";
+			      	String welder = "";
+					if(instype.equals("20")){
+				      status = "fid";
+				      inssta = "insf";
+				      inssta2 = "ins2";
+				    }else if(instype.equals("21")){
+				      status = "caustid";
+				      inssta = "ins";
+				      inssta2 = "ins1";
+				    }else if(instype.equals("22")){
+				      status = "itemid";
+				      inssta = "i";
+				      inssta2 = "tb_insframework";
+				    }else if(instype.equals("23")){
+				      status = "itemid";
+				      inssta = "i";
+				      inssta2 = "tb_insframework";
+				    }
+					
+					String Command1 = "SELECT fid,caustid,itemid,fname,max(machinenum) total,weldTime,worktime from "
+							+ "(SELECT fid,caustid,itemid,fname,COUNT(fmachine_id) machinenum,weldTime,sum(num) worktime from "
+							+ "(SELECT insf.fid,ins.fid caustid,i.fid itemid," + inssta + ".fname,m.fid fmachine_id,DATE_FORMAT(fstarttime, '%Y-%m-%d') weldTime,sum(fworktime)/60/60 num FROM tb_work l "
+							+ "INNER JOIN tb_welding_machine m on m.fid = l.fmachine_id "
+							+ "INNER JOIN tb_insframework i on i.fid = l.fitemid "
+							+ "INNER JOIN tb_insframework ins on ins.fid = i.fparent "
+							+ "INNER JOIN tb_insframework insf on insf.fid = ins.fparent "
+							+ "where 1=1 and fstarttime >= '2016-05-01' and fstarttime <= '2020-07-01' "
+							+ "and (i.fid =" + ins + " or ins.fid =" + ins + " or insf.fid =" + ins + " or insf.fparent =" + ins + ") "
+							+ "group by i.fid,fmachine_id,weldTime "
+							+ "UNION "
+							+ "SELECT insf.fid,ins.fid caustid,i.fid itemid," + inssta + ".fname,m.fid fmachine_id,DATE_FORMAT(fstarttime, '%Y-%m-%d') weldTime,sum(fstandbytime)/60/60 num FROM tb_standby l "
+							+ "INNER JOIN tb_welding_machine m on m.fid = l.fmachine_id "
+							+ "INNER JOIN tb_insframework i on i.fid = l.fitemid "
+							+ "INNER JOIN tb_insframework ins on ins.fid = i.fparent "
+							+ "INNER JOIN tb_insframework insf on insf.fid = ins.fparent "
+							+ "where 1=1 and fstarttime >= '2016-05-01' and fstarttime <= '2020-07-01' "
+							+ "and (i.fid =" + ins + " or ins.fid =" + ins + " or insf.fid =" + ins + " or insf.fparent =" + ins + ") "
+							+ "group by i.fid,fmachine_id,weldTime )temp "
+							+ "group by " + status + ",weldTime)A group by " + status + " ORDER BY total DESC";
+					
+					rs = stmt.executeQuery(Command1);
+					
+					listarray1.clear();
+					while (rs.next()) {
+					  num = rs.getString("total");
+			      	  welder = rs.getString("fname");
+			      	  listarray1.add(num);
+			      	  listarray1.add(welder);
+			        }
+					
+					String Command2 = "SELECT " + inssta2 + ".fname,COUNT(tb_welding_machine.fequipment_no) FROM tb_insframework "
+							+ "INNER JOIN tb_welding_machine ON tb_insframework.fid = tb_welding_machine.finsframework_id "
+							+ "INNER JOIN tb_insframework ins1 ON ins1.fid = tb_insframework.fparent "
+							+ "INNER JOIN tb_insframework ins2 ON ins2.fid = ins1.fparent "
+							+ "WHERE (ins1.fid = " + ins + " OR ins1.fparent = " + ins + " OR ins2.fparent = " + ins + ") "
+							+ "GROUP BY " + inssta2 + ".fid";
+					
+					rs = stmt.executeQuery(Command2);
+					
+					ArrayList<String> listarray3 = new ArrayList<String>();
+					while (rs.next()) {
+					  num = rs.getString("COUNT(tb_welding_machine.fequipment_no)");
+			      	  welder = rs.getString("fname");
+			      	  listarray3.add(num);
+			      	  listarray3.add(welder);
+			        }
+					
+					for(int i=0;i<listarray1.size();i+=2){
+						for(int j=0;j<listarray3.size();j+=2){
+							if(listarray1.get(i+1).equals(listarray3.get(j+1))){
+								String a = String.valueOf(((double)Integer.valueOf(listarray1.get(i)))/((double) Integer.valueOf(listarray3.get(j))));
+								listarray1.set(i, a.substring(0,4));
+							}
+						}
 					}
-	        	} catch (ClassNotFoundException e) {
+					
+		        } catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	        	sendtype="weldbot";
-				Intent intent1=new Intent(MainActivity.this,ComboLineColumnChartActivity.class);
-				intent1.putStringArrayListExtra("data", listarray1);
-				intent1.putExtra("type", sendtype);
-				intent1.putExtra("name", "º¸¹¤¹¤Ê±bot");
-				
-				progressDialog.dismiss();
-				
-				startActivity(intent1);
-	    	}
-		};
+        	} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	sendtype="weldusetop";
+			Intent intent1=new Intent(MainActivity.this,ComboLineColumnChartActivity.class);
+			intent1.putStringArrayListExtra("data", listarray1);
+			intent1.putExtra("type", sendtype);
+			intent1.putExtra("name", "è®¾å¤‡åˆ©ç”¨çŽ‡TOP");
+			intent1.putExtra("ins", ins);
+			intent1.putExtra("instype", instype);
+			intent1.putExtra("ip", ipconfig);
+			intent1.putExtra("base", base);
+			intent1.putExtra("name", name);
+			intent1.putExtra("ser", ser);
+			
+			progressDialog.dismiss();
+			
+			startActivity(intent1);
+    	}
+	};
+	
+	//è®¾å¤‡åˆ©ç”¨çŽ‡ä½Ž
+	Runnable runnable7 = new Runnable() {
+        ResultSet rs;
+        public void run() {
+        	
+        	try {
+				Class.forName("com.mysql.jdbc.Driver");
+		        try {
+		        	conn = DriverManager.getConnection("jdbc:mysql://" + ipconfig + ":3306/" + base + "", "" + name + "", "" + ser + "");
+					stmt= conn.createStatement();
+					
+					//String Command1="select COUNT(tb_live_data.fid) num,tb_welder.fname FROM tb_welder left JOIN tb_live_data on tb_welder.fwelder_no = tb_live_data.fwelder_id WHERE 1=1 and fweldtime >= '2017-12-20' and fweldtime <= '2019-03-01' group by tb_welder.fname ORDER by num ASC";
+					//String Command1="SELECT SUM(tb_work.fworktime),tb_welder.fname FROM tb_work INNER JOIN tb_welder ON tb_work.fwelder_id = tb_welder.fwelder_no WHERE 1=1 GROUP BY tb_welder.fname ORDER BY SUM(tb_work.fworktime) ASC";
+					String status = "";
+					String inssta = "";
+					String inssta2 = "";
+					String num = "";
+			      	String welder = "";
+					if(instype.equals("20")){
+				      status = "fid";
+				      inssta = "insf";
+				      inssta2 = "ins2";
+				    }else if(instype.equals("21")){
+				      status = "caustid";
+				      inssta = "ins";
+				      inssta2 = "ins1";
+				    }else if(instype.equals("22")){
+				      status = "itemid";
+				      inssta = "i";
+				      inssta2 = "tb_insframework";
+				    }else if(instype.equals("23")){
+				      status = "itemid";
+				      inssta = "i";
+				      inssta2 = "tb_insframework";
+				    }
+					
+					String Command1 = "SELECT fid,caustid,itemid,fname,max(machinenum) total,weldTime,worktime from "
+							+ "(SELECT fid,caustid,itemid,fname,COUNT(fmachine_id) machinenum,weldTime,sum(num) worktime from "
+							+ "(SELECT insf.fid,ins.fid caustid,i.fid itemid," + inssta + ".fname,m.fid fmachine_id,DATE_FORMAT(fstarttime, '%Y-%m-%d') weldTime,sum(fworktime)/60/60 num FROM tb_work l "
+							+ "INNER JOIN tb_welding_machine m on m.fid = l.fmachine_id "
+							+ "INNER JOIN tb_insframework i on i.fid = l.fitemid "
+							+ "INNER JOIN tb_insframework ins on ins.fid = i.fparent "
+							+ "INNER JOIN tb_insframework insf on insf.fid = ins.fparent "
+							+ "where 1=1 and fstarttime >= '2016-05-01' and fstarttime <= '2020-07-01' "
+							+ "and (i.fid =" + ins + " or ins.fid =" + ins + " or insf.fid =" + ins + " or insf.fparent =" + ins + ") "
+							+ "group by i.fid,fmachine_id,weldTime "
+							+ "UNION "
+							+ "SELECT insf.fid,ins.fid caustid,i.fid itemid," + inssta + ".fname,m.fid fmachine_id,DATE_FORMAT(fstarttime, '%Y-%m-%d') weldTime,sum(fstandbytime)/60/60 num FROM tb_standby l "
+							+ "INNER JOIN tb_welding_machine m on m.fid = l.fmachine_id "
+							+ "INNER JOIN tb_insframework i on i.fid = l.fitemid "
+							+ "INNER JOIN tb_insframework ins on ins.fid = i.fparent "
+							+ "INNER JOIN tb_insframework insf on insf.fid = ins.fparent "
+							+ "where 1=1 and fstarttime >= '2016-05-01' and fstarttime <= '2020-07-01' "
+							+ "and (i.fid =" + ins + " or ins.fid =" + ins + " or insf.fid =" + ins + " or insf.fparent =" + ins + ") "
+							+ "group by i.fid,fmachine_id,weldTime )temp "
+							+ "group by " + status + ",weldTime)A group by " + status + " ORDER BY total ASC";
+					
+					rs = stmt.executeQuery(Command1);
+					
+					listarray1.clear();
+					while (rs.next()) {
+					  num = rs.getString("total");
+			      	  welder = rs.getString("fname");
+			      	  listarray1.add(num);
+			      	  listarray1.add(welder);
+			        }
+					
+					String Command2 = "SELECT " + inssta2 + ".fname,COUNT(tb_welding_machine.fequipment_no) FROM tb_insframework "
+							+ "INNER JOIN tb_welding_machine ON tb_insframework.fid = tb_welding_machine.finsframework_id "
+							+ "INNER JOIN tb_insframework ins1 ON ins1.fid = tb_insframework.fparent "
+							+ "INNER JOIN tb_insframework ins2 ON ins2.fid = ins1.fparent "
+							+ "WHERE (ins1.fid = " + ins + " OR ins1.fparent = " + ins + " OR ins2.fparent = " + ins + ") "
+							+ "GROUP BY " + inssta2 + ".fid";
+					
+					rs = stmt.executeQuery(Command2);
+					
+					ArrayList<String> listarray3 = new ArrayList<String>();
+					while (rs.next()) {
+					  num = rs.getString("COUNT(tb_welding_machine.fequipment_no)");
+			      	  welder = rs.getString("fname");
+			      	  listarray3.add(num);
+			      	  listarray3.add(welder);
+			        }
+					
+					for(int i=0;i<listarray1.size();i+=2){
+						for(int j=0;j<listarray3.size();j+=2){
+							if(listarray1.get(i+1).equals(listarray3.get(j+1))){
+								String a = String.valueOf(((double)Integer.valueOf(listarray1.get(i)))/((double) Integer.valueOf(listarray3.get(j))));
+								listarray1.set(i, a.substring(0,4));
+							}
+						}
+					}
+					
+		        } catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	sendtype="weldusebot";
+			Intent intent1=new Intent(MainActivity.this,ComboLineColumnChartActivity.class);
+			intent1.putStringArrayListExtra("data", listarray1);
+			intent1.putExtra("type", sendtype);
+			intent1.putExtra("name", "è®¾å¤‡åˆ©ç”¨çŽ‡BOT");
+			intent1.putExtra("ins", ins);
+			intent1.putExtra("instype", instype);
+			intent1.putExtra("ip", ipconfig);
+			intent1.putExtra("base", base);
+			intent1.putExtra("name", name);
+			intent1.putExtra("ser", ser);
+			
+			progressDialog.dismiss();
+			
+			startActivity(intent1);
+    	}
+	};
 		
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
@@ -312,5 +637,5 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
+	}*/
 }

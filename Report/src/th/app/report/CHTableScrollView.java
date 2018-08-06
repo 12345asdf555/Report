@@ -30,7 +30,7 @@ public class CHTableScrollView extends HorizontalScrollView {
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
-		//½øĞĞ´¥Ãş¸³Öµ
+		//è¿›è¡Œè§¦æ‘¸èµ‹å€¼Öµ
 		activity.mTouchView = this;
 		return super.onTouchEvent(ev);
 	}
@@ -38,7 +38,7 @@ public class CHTableScrollView extends HorizontalScrollView {
 	@Override
 	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
 		if (isInEditMode()) { return; }
-		//µ±µ±Ç°µÄCHSCrollView±»´¥ÃşÊ±£¬»¬¶¯ÆäËü
+		//å½“å½“å‰çš„CHSCrollViewè¢«è§¦æ‘¸æ—¶ï¼Œæ»‘åŠ¨å…¶å®ƒ
 		if(activity.mTouchView == this) {
 			activity.onScrollChanged(l, t, oldl, oldt);
 		}else{

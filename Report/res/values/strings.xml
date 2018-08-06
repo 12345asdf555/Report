@@ -4,7 +4,7 @@
     <string name="app_name">WELDMES</string>
     <string name="app_label">云智能焊接管控</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">参数配置</string>
     <string name="title_activity_combo_line_column_chart">ComboLineColumnChartActivity</string>
 
 </resources>
